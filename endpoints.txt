@@ -1,0 +1,61 @@
+GET_ALL
+http://127.0.0.1:5000/client
+
+#GET_BY_ID
+http://127.0.0.1:5000/client/459
+
+POST - Token
+http://127.0.0.1:5000/client/459
+{
+    "codCliente": 459,
+    "codEntrega": 1224459,
+    "nomeCliente": "Henrique R. M. Pincelli",
+    "CPF": 44062112841,
+    "Email": "pincellihenrique9@gmail.com",
+    "Logradouro": "Avenida Parada Pinto, 2511 - 02611-003 - São Paulo, SP",
+    "Contato": "(11)94665-3230",
+    "dataHomol": "2023/06/08",
+    "dataAtualiz": "2023/06/08",
+    "Status": 1
+}
+
+PUT - Token
+http://127.0.0.1:5000/client/459
+{
+    "codCliente": 459,
+    "codEntrega": 123456789,
+    "nomeCliente": "Marshall Matthers",
+    "CPF": 50927270000144,
+    "Email": "eminem@gmail.com",
+    "Logradouro": "Detroit",
+    "Contato": "(11)94665-3230",
+    "dataHomol": "2023/06/08",
+    "dataAtualiz": "2023/06/08",
+    "Status": 1
+}
+
+DELETE
+http://127.0.0.1:5000/client/459
+
+GET
+http://127.0.0.1:5000/users/45
+
+DEL - Token
+http://127.0.0.1:5000/users/45
+
+POST
+http://127.0.0.1:5000/login
+{
+    "Login": "admin",
+    "Password": "459"
+}
+
+POST
+http://127.0.0.1:5000/logout
+
+POST
+http://127.0.0.1:5000/register
+{
+    "Login": "admin",
+    "Password": "459"
+}
