@@ -5,22 +5,21 @@ import sqlite3
 
 
 def normalizeUrlParams(status = None, limit = 50, offset = 0, **data):
-    if status == 0:
+    if status is not None:
         return {
             "status": status,
             "Limit": limit,
-            "Offset": offset
+            "offset": offset
         }
     return {
-        "status": 1,
         "Limit": limit,
-        "Offset": offset
+        "offset": offset
         }
 
 urlParams = reqparse.RequestParser()
 urlParams.add_argument("status", type = int)
 urlParams.add_argument("Limit", type = float)
-urlParams.add_argument("Offset", type = float)
+urlParams.add_argument("offset", type = float)
 
 class clientes(Resource):
     def get(self):
@@ -29,14 +28,21 @@ class clientes(Resource):
 
         data = urlParams.parse_args()
         trueData = {key:data[key] for key in data if data[key] is not None}
-        parameters = normalizeUrlParams(**data)
+        parameters = normalizeUrlParams(**trueData)
 
-        consult = """SELECT * FROM clients
-                    WHERE (Status = ?)
-                    LIMIT ?
-                    OFFSET ?"""
-        consultList = tuple([parameters[key] for key in parameters])
-        result = cursor.execute(consult, consultList)
+        if parameters.get("status") is not None:
+            consult = """SELECT * FROM clients
+                        WHERE (Status = ?)
+                        LIMIT ?
+                        offset ?"""
+            consultList = tuple([parameters[key] for key in parameters])
+            result = cursor.execute(consult, consultList)
+        else:
+            consult = """SELECT * FROM clients
+                        LIMIT ?
+                        offset ?"""
+            consultList = tuple([parameters[key] for key in parameters])
+            result = cursor.execute(consult, consultList)
 
         clients = []
         for line in result:
